@@ -1,10 +1,17 @@
 pipeline {
   agent any
 
-  stages {
-    stage('Checkout') {
+  stage('Clone Repository') {
       steps {
-        git branch: 'main', url: 'https://github.com/aniruddha-22/devops-fullstack-app.git'
+        withCredentials([
+          usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+        ]) {
+          git branch: 'main',
+              credentialsId: 'your-credentials-id',
+              url: 'https://github.com/your-repo.git',
+              credentialsUsernameVariable: 'GIT_USERNAME',
+              credentialsPasswordVariable: 'GIT_PASSWORD'
+        }
       }
     }
 
