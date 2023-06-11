@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/aniruddha-22/devops-fullstack-app.git'
+        git branch: 'main', url: 'https://github.com/aniruddha-22/-devops-fullstack-app.git'
       }
     }
 
@@ -40,6 +40,13 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-ani6143-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
         sh 'docker login -u $username -p $password https://index.docker.io/v1/'
         sh 'docker push aniruddha321/frontend-image'
+        }
+      }
+    }
+    stage('Deploying App to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
         }
       }
     }
