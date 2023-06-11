@@ -1,14 +1,14 @@
 pipeline {
   agent any
 
-  stage('Clone Repository') {
+ stage('Clone Repository') {
       steps {
         withCredentials([
-          usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+          usernamePassword(credentialsId: 'jenkins-git-credentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
         ]) {
           git branch: 'main',
-              credentialsId: 'your-credentials-id',
-              url: 'https://github.com/your-repo.git',
+              credentialsId: 'jenkins-git-credentials',
+              url: 'https://github.com/aniruddha-22/devops-fullstack-app.git',
               credentialsUsernameVariable: 'GIT_USERNAME',
               credentialsPasswordVariable: 'GIT_PASSWORD'
         }
