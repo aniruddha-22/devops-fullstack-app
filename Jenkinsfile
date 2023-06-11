@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/aniruddha-22/-devops-fullstack-app.git'
+        git branch: 'main', url: 'https://github.com/aniruddha-22/devops-fullstack-app.git'
       }
     }
 
@@ -29,8 +29,8 @@ pipeline {
     stage('Push Backend') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-ani6143-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-        sh 'docker login -u $username -p $password https://index.docker.io/v1/'
-        sh 'docker push aniruddha321/backend-image'
+          sh 'docker login -u $username -p $password https://index.docker.io/v1/'
+          sh 'docker push aniruddha321/backend-image'
         }
       }
     }
@@ -38,15 +38,20 @@ pipeline {
     stage('Push Frontend') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-ani6143-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-        sh 'docker login -u $username -p $password https://index.docker.io/v1/'
-        sh 'docker push aniruddha321/frontend-image'
+          sh 'docker login -u $username -p $password https://index.docker.io/v1/'
+          sh 'docker push aniruddha321/frontend-image'
         }
       }
     }
+
     stage('Deploying App to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
+          kubernetesDeploy(configs: "backend-deployment.yaml", kubeconfigId: "kubernetes")
+          kubernetesDeploy(configs: "backend-service.yaml", kubeconfigId: "kubernetes")
+          kubernetesDeploy(configs: "frontend-deployment.yaml", kubeconfigId: "kubernetes")
+          kubernetesDeploy(configs: "frontend-service.yaml", kubeconfigId: "kubernetes")
+          kubernetesDeploy(configs: "ingress.yaml", kubeconfigId: "kubernetes")
         }
       }
     }
