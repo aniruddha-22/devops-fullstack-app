@@ -1,7 +1,8 @@
 pipeline {
   agent any
 
- stage('Clone Repository') {
+  stages {
+    stage('Clone Repository') {
       steps {
         withCredentials([
           usernamePassword(credentialsId: 'jenkins-git-credentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
