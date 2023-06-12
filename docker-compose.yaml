@@ -7,6 +7,9 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    networks:
+      - my-network
+    hostname: backend
 
   frontend:
     build:
@@ -14,3 +17,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    networks:
+      - my-network
+    depends_on:
+      - backend
+
+networks:
+  my-network:
+    driver: bridge
