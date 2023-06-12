@@ -9,9 +9,7 @@ pipeline {
         ]) {
           git branch: 'main',
               credentialsId: 'jenkins-git-credentials',
-              url: 'https://github.com/aniruddha-22/devops-fullstack-app.git',
-              credentialsUsernameVariable: 'username',
-              credentialsPasswordVariable: 'password'
+              url: 'https://github.com/aniruddha-22/devops-fullstack-app.git'
         }
       }
     }
