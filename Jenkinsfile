@@ -5,13 +5,13 @@ pipeline {
     stage('Clone Repository') {
       steps {
         withCredentials([
-          usernamePassword(credentialsId: 'jenkins-git-credentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+          usernamePassword(credentialsId: 'jenkins-git-credentials', passwordVariable: 'password', usernameVariable: 'username')
         ]) {
           git branch: 'main',
               credentialsId: 'jenkins-git-credentials',
               url: 'https://github.com/aniruddha-22/devops-fullstack-app.git',
-              credentialsUsernameVariable: 'GIT_USERNAME',
-              credentialsPasswordVariable: 'GIT_PASSWORD'
+              credentialsUsernameVariable: 'username',
+              credentialsPasswordVariable: 'password'
         }
       }
     }
