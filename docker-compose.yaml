@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   backend:
     build:
@@ -6,12 +7,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8081:8080
-    environment:
-      - DB_HOST=<POSTGRES_HOST>
-      - DB_USER=<POSTGRES_USER>
-      - DB_PASSWORD=<POSTGRES_PASSWORD>
-      - DB_NAME=<POSTGRES_DB_NAME>
-      - DB_PORT=<POSTGRES_PORT>
+    env_file:
+      - .env
+    # Other configuration options for the backend service
 
   frontend:
     build:
@@ -19,3 +17,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    # Other configuration options for the frontend service
