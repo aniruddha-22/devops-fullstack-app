@@ -5,11 +5,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - 8081:8080
     env_file:
       - .env
-    # Other configuration options for the backend service
 
   frontend:
     build:
@@ -17,4 +14,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    # Other configuration options for the frontend service
