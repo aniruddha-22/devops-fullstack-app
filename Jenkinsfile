@@ -18,7 +18,6 @@ pipeline {
       steps {
         dir('backend') {
           sh 'docker build -t backend-image .'
-          sh 'docker tag backend-image aniruddha321/backend-image'
         }
       }
     }
@@ -27,7 +26,6 @@ pipeline {
       steps {
         dir('frontend') {
           sh 'docker build -t frontend-image .'
-          sh 'docker tag frontend-image aniruddha321/frontend-image'
         }
       }
     }
