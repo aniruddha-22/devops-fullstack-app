@@ -14,6 +14,13 @@ COPY . .
 # Build the Go application
 RUN go build -o main .
 
+# Set the environment variables
+ENV DB_HOST=<POSTGRES_HOST>
+ENV DB_USER=<POSTGRES_USER>
+ENV DB_PASSWORD=<POSTGRES_PASSWORD>
+ENV DB_NAME=<POSTGRES_DB_NAME>
+ENV DB_PORT=<POSTGRES_PORT>
+
 # Expose the port on which the backend server listens
 EXPOSE 8080
 
