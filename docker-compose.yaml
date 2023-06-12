@@ -3,26 +3,19 @@ services:
   backend:
     build:
       context: ./backend
-    environment:
-      - DB_HOST=${DB_HOST}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
-      - DB_PORT=${DB_PORT}
+      dockerfile: Dockerfile
     ports:
-      - 8080  # Backend service is not exposed to the outside world
-    networks:
-      - app-network
+      - 8081:8080
+    environment:
+      - DB_HOST=<POSTGRES_HOST>
+      - DB_USER=<POSTGRES_USER>
+      - DB_PASSWORD=<POSTGRES_PASSWORD>
+      - DB_NAME=<POSTGRES_DB_NAME>
+      - DB_PORT=<POSTGRES_PORT>
 
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - 8081:3000  # Expose frontend service on port 8081 of the host machine
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
-networks:
-  app-network:
+      - 3000:3000
